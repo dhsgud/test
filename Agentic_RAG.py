@@ -13,7 +13,6 @@ from langchain_community.vectorstores import FAISS
 from langchain_community.vectorstores.utils import DistanceStrategy
 from FlagEmbedding import FlagReranker
 from langchain_experimental.text_splitter import SemanticChunker
-from langchain_openai import OpenAI
 
 import warnings 
 warnings.filterwarnings("ignore", category=DeprecationWarning)
@@ -33,7 +32,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 # Embeddings setup
 embeddings_model = HuggingFaceEmbeddings(
     model_name='nlpai-lab/KoE5',
-    model_kwargs={'device': 'mps'},
+    model_kwargs={'device': 'cuda'},
     encode_kwargs={'normalize_embeddings': True},
 )
 
@@ -123,7 +122,7 @@ def process_question(question):
 if __name__ == "__main__":
     while True:
         print("\n" + "=" * 50)
-        query = f"업무 외 지시로 판단되는 것을 찾아줘"
+        query = f"모욕으로 판단되는 것을 찾아줘"
         
         print("\n검색 중...")
         try:
